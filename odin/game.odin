@@ -32,6 +32,9 @@ when ODIN_DEBUG {
 		fmt.println("==================================================")
 		fmt.printfln("TOTAL LEAKS: %.2f KB | TOTAL BAD FREES: %v", f64(leaks) / 1024, bad_frees)
 		fmt.println("==================================================\n")
+
+		mem.tracking_allocator_destroy(&tracker)
+		mem.tracking_allocator_destroy(&temp_tracker)
 	}
 }
 
