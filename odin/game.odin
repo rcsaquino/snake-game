@@ -90,7 +90,7 @@ draw :: proc(g: Game) {
 	r.DrawRectangleLines(FIELD_MARGIN, FIELD_MARGIN, FIELD_WIDTH, FIELD_HEIGHT, r.BLACK)
 
 	info := fmt.ctprintf("Score: %d | Highscore: %d", g.score, g.high_score)
-	r.DrawText(info, 20, 0, 20, r.BLACK)
+	r.DrawText(info, 20, 1, 20, r.BLACK)
 
 	draw_snake(g.snake)
 	draw_food(g.food)
