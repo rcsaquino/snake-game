@@ -1,4 +1,4 @@
-import irishgreencitrus.raylibv as r
+import raylib as r
 
 struct SnakeSegment {
 mut:

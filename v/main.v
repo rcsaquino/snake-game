@@ -1,4 +1,7 @@
-import irishgreencitrus.raylibv as r
+import raylib as r
+
+// include raylib directory via cflags
+// #flag -mwindows
 
 const win_width = 800
 const win_height = 600
@@ -6,6 +9,11 @@ const block_size = 20
 const field_margin = block_size * 1
 const field_width = win_width - field_margin * 2
 const field_height = win_height - field_margin * 2
+
+const key_up = 265
+const key_down = 264
+const key_left = 263
+const key_right = 262
 
 struct Game {
 mut:
@@ -20,7 +28,7 @@ fn (g Game) draw() {
 	r.begin_drawing()
 	r.clear_background(r.white)
 
-	r.draw_text('Score: ${g.score} | Highscore: ${g.highscore}'.str, 20, 1, 20, r.black)
+	r.draw_text('Score: ${g.score} | Highscore: ${g.highscore}', 20, 1, 20, r.black)
 
 	r.draw_rectangle_lines(field_margin, field_margin, field_width, field_height, r.black)
 	g.snake.draw()
@@ -31,6 +39,7 @@ fn (g Game) draw() {
 
 fn (mut g Game) update() {
 	if g.is_gameover() {
+		r.draw_text('Score: ${g.score} | Highscore: ${g.highscore}', 20, 1, 20, r.black)
 		println('> Game Over! Your score is ${g.score}')
 		if g.score > g.highscore {
 			g.highscore = g.score
@@ -63,19 +72,19 @@ fn (mut g Game) handle_controls() {
 	if g.snake.has_move_queue {
 		return
 	}
-	if r.is_key_pressed(r.key_up) && g.snake.vec[1] != 1 {
+	if r.is_key_pressed(key_up) && g.snake.vec[1] != 1 {
 		g.snake.vec = [0, -1]
 		g.snake.has_move_queue = true
 	}
-	if r.is_key_pressed(r.key_down) && g.snake.vec[1] != -1 {
+	if r.is_key_pressed(key_down) && g.snake.vec[1] != -1 {
 		g.snake.vec = [0, 1]
 		g.snake.has_move_queue = true
 	}
-	if r.is_key_pressed(r.key_left) && g.snake.vec[0] != 1 {
+	if r.is_key_pressed(key_left) && g.snake.vec[0] != 1 {
 		g.snake.vec = [-1, 0]
 		g.snake.has_move_queue = true
 	}
-	if r.is_key_pressed(r.key_right) && g.snake.vec[0] != 1 {
+	if r.is_key_pressed(key_right) && g.snake.vec[0] != 1 {
 		g.snake.vec = [1, 0]
 		g.snake.has_move_queue = true
 	}
@@ -86,7 +95,7 @@ fn (g Game) is_gameover() bool {
 }
 
 fn main() {
-	r.init_window(win_width, win_height, 'Snake Game'.str)
+	r.init_window(win_width, win_height, 'Snake Game')
 
 	// r.set_random_seed(0)
 	mut g := Game{}
